@@ -4,11 +4,17 @@ import './App.css';
 import * as BABYLON from'@babylonjs/core';
 import { Scene, FreeCamera, Vector3, HemisphericLight, MeshBuilder, Mesh, SceneLoader, StandardMaterial,Texture,Color3 } from '@babylonjs/core';
 import "@babylonjs/loaders/glTF"
+import { WaterMaterial } from '@babylonjs/materials/Grid';
+
 
 let box: Mesh | undefined;
 
+
+
 const onSceneReady = (scene: Scene) => {
   console.log('scene ready:', scene);
+
+ 
 
   // This creates and positions a free camera (non-mesh)
   var camera = new FreeCamera("camera1", new Vector3(0, 5, -10), scene);
@@ -25,8 +31,9 @@ const onSceneReady = (scene: Scene) => {
 
 
     // physics
-    // scene.collisionsEnabled = true;
-    // scene.enablePhysics(null, new BABYLON.OimoJSPlugin());
+    scene.collisionsEnabled = true;
+    const OIMO = require("oimo")
+    scene.enablePhysics(null, new BABYLON.OimoJSPlugin(undefined, OIMO));
     SceneLoader.ImportMesh(
       "",
       "https://models.babylonjs.com/",
